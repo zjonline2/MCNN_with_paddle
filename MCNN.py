@@ -30,6 +30,6 @@ def core(input):
     return convs
 def MCNN(input,pretrain):
     if pretrain is list:
-       return fluid.layers.convseg(core(input)[pretrain[0]],1,1,False)
+       return convseg(core(input)[pretrain[0]],1,1,False)
     else:
-       return fluid.layers.convseg(fluid.layers.concat(core(input)),1,1,False)
+       return convseg(fluid.layers.concat(core(input)),1,1,False)
