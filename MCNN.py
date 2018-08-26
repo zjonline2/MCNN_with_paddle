@@ -8,7 +8,7 @@ def convseg(input,num_filters,filter_size,max_pool):
                               num_filters=num_filters,
                               filter_size=filter_size,
                               stride=1,
-                              padding=(filter_size-1)/2,
+                              padding=(filter_size+1)/2,
                               act='relu',
                               dilation=1,
                               param_attr=fluid.param_attr.ParamAttr(
@@ -31,4 +31,4 @@ def core(input):
 def MCNN(input,pretrain):
     out=core(input)
     print out[0].shape;print out[1].shape;print out[2].shape
-    
+
