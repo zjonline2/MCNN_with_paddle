@@ -32,4 +32,4 @@ def MCNN(input,pretrain):
     if pretrain is list:
        return convseg(core(input)[pretrain[0]],1,1,False)
     else:
-       return convseg(fluid.layers.concat(core(input)),1,1,False)
+       return convseg(fluid.layers.concat(core(input),3),1,1,False)
