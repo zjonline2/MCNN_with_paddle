@@ -77,7 +77,7 @@ class Settings(object):
         return self._img_mean
 
 def train(settings, file_list, shuffle=True):
-    file_list = os.path.join(settings.data_dir, file_list)
+    annotation='./baidu_star_2018/annotation/annotation_train_stage2.json'
     flist = open(annotation)
     annotations=json.load(flist)['annotations'];
     if mode == 'train' and shuffle:
