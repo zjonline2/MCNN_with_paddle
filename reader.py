@@ -86,7 +86,7 @@ def train(settings, file_list, shuffle=True):
         im = Image.open(image_path);
         if im.mode == 'L':
             im = im.convert('RGB')
-            im_width, im_height = im.size
+        im_width, im_height = im.size
         if im_width==1920 and im_height==1080:
                 id_path=settings.data_dir+'/ground_truth/'+str(annotation['id'])+'.npy'
                 im=im.resize((im_width/2,im_height/2),Image.ANTIALIAS)
