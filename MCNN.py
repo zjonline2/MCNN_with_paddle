@@ -7,7 +7,7 @@ def convseg(input,num_filters,filter_size,max_pool):
     input=fluid.layers.conv2d(input=input,
                               num_filters=num_filters,
                               filter_size=filter_size,
-                              stride=1,
+                              stride=1,padding=filter_size/2,
                               act='relu',
                               dilation=1,
                               param_attr=fluid.param_attr.ParamAttr(
