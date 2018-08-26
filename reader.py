@@ -79,10 +79,9 @@ class Settings(object):
 def baidu_star_2018(settings,annotation, mode, shuffle):
     flist = open(annotation)
     annotations=json.load(flist)['annotations'];
-    def reader():
-        if mode == 'train' and shuffle:
+    if mode == 'train' and shuffle:
             random.shuffle(annotations)
-        for annotation in annotations:
+    for annotation in annotations:
             image_path = settings.data_dir+'/image/'+annotation['name']
             im = Image.open(image_path);
             if im.mode == 'L':
@@ -102,7 +101,6 @@ def baidu_star_2018(settings,annotation, mode, shuffle):
             else:
                 continue
 
-    return reader
 def train(settings, file_list, shuffle=True):
     file_list = os.path.join(settings.data_dir, file_list)
     return baidu_star_2018(settings, file_list, 'train', shuffle)
