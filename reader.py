@@ -103,7 +103,7 @@ def baidu_star_2018(settings,annotation, mode, shuffle):
 
 def train(settings, file_list, shuffle=True):
     file_list = os.path.join(settings.data_dir, file_list)
-    return baidu_star_2018(settings, file_list, 'train', shuffle)
+    baidu_star_2018(settings, file_list, 'train', shuffle)
 
 def test(settings, file_list):
     file_list = os.path.join(settings.data_dir, file_list)
