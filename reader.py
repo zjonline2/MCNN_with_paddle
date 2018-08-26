@@ -78,20 +78,19 @@ class Settings(object):
 
 def baidu_star_2018(settings,annotation, mode, shuffle):
     flist = open(annotation)
-    annotations=json.load(flist)['annotations'];images=[]
+    annotations=json.load(flist)['annotations'];
     def reader():
         if mode == 'train' and shuffle:
             random.shuffle(annotations)
         for annotation in annotations:
             image_path = settings.data_dir+'/image/'+annotation['name']
-            im = Image.open(image_path);imgs=[]
-            images.append(im)
+            im = Image.open(image_path);
             if im.mode == 'L':
                 im = im.convert('RGB')
             im_width, im_height = im.size
             if im_width==1920 and im_height==1080:
                id_path=settings.data_dir+'/ground_truth/'+str(annotation['id'])+'.npy'
-               im=im.resize((im_width/4,im_height/4),Image.ANTIALIAS)
+               #im=im.resize((im_width,im_height),Image.ANTIALIAS)
                im=np.array(im)
                if len(im.shape) == 3:
                      im = np.swapaxes(im, 0, 2)

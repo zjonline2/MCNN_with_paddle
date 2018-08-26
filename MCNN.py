@@ -16,7 +16,6 @@ def convseg(input,num_filters,filter_size,max_pool):
                                  initializer=fluid.initializer.Constant(value=0.0)))
     if max_pool:
        input=fluid.layers.pool2d(input=input,pool_size=2,pool_type='max',pool_stride=2)
-    print input.shape
     return input
 def core(input):
     num_filter=[[[9,16,False],[7,32,True],[7,16,True],[7,8,False]],
@@ -27,8 +26,12 @@ def core(input):
         for j in i:
             conv=convseg(conv,j[1],j[0],j[2])
         convs.append(conv)
+        conv=input
     return convs
 def MCNN(input,pretrain):
     out=core(input)
-    print out[0].shape;print out[1].shape;print out[2].shape
+    if pretrain is list:
+        return convseg(out[pretrain[0]],1,1,False)
+    else:
+        return convseg(fluid.layers.concat(out,1),1,1,False)
 
