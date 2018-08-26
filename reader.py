@@ -76,9 +76,6 @@ class Settings(object):
     def img_mean(self):
         return self._img_mean
 
-def baidu_star_2018(settings,annotation, mode, shuffle):
-
-
 def train(settings, file_list, shuffle=True):
     file_list = os.path.join(settings.data_dir, file_list)
     flist = open(annotation)
