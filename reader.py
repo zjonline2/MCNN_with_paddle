@@ -77,29 +77,7 @@ class Settings(object):
         return self._img_mean
 
 def baidu_star_2018(settings,annotation, mode, shuffle):
-    flist = open(annotation)
-    annotations=json.load(flist)['annotations'];
-    if mode == 'train' and shuffle:
-            random.shuffle(annotations)
-    for annotation in annotations:
-            image_path = settings.data_dir+'/image/'+annotation['name']
-            im = Image.open(image_path);
-            if im.mode == 'L':
-                im = im.convert('RGB')
-            im_width, im_height = im.size
-            if im_width==1920 and im_height==1080:
-               id_path=settings.data_dir+'/ground_truth/'+str(annotation['id'])+'.npy'
-               im=im.resize((im_width/2,im_height/2),Image.ANTIALIAS)
-               im=np.array(im)
-               if len(im.shape) == 3:
-                   im = np.swapaxes(im, 0, 2)
-               if os.path.exists(id_path):
-                  gt=np.load(id_path)
-                  gt=np.transpose(gt)
-                  gt=np.swapaxes(gt,0,1)
-                  yield im, [gt]
-            else:
-                continue
+
 
 def train(settings, file_list, shuffle=True):
     file_list = os.path.join(settings.data_dir, file_list)
@@ -107,7 +85,29 @@ def train(settings, file_list, shuffle=True):
 
 def test(settings, file_list):
     file_list = os.path.join(settings.data_dir, file_list)
-    return baidu_star_2018(settings, file_list, 'test', False)
+    flist = open(annotation)
+    annotations=json.load(flist)['annotations'];
+    if mode == 'train' and shuffle:
+        random.shuffle(annotations)
+    for annotation in annotations:
+        image_path = settings.data_dir+'/image/'+annotation['name']
+        im = Image.open(image_path);
+        if im.mode == 'L':
+            im = im.convert('RGB')
+            im_width, im_height = im.size
+            if im_width==1920 and im_height==1080:
+                id_path=settings.data_dir+'/ground_truth/'+str(annotation['id'])+'.npy'
+                im=im.resize((im_width/2,im_height/2),Image.ANTIALIAS)
+                im=np.array(im)
+                if len(im.shape) == 3:
+                    im = np.swapaxes(im, 0, 2)
+                        if os.path.exists(id_path):
+                            gt=np.load(id_path)
+                            gt=np.transpose(gt)
+                            gt=np.swapaxes(gt,0,1)
+                            yield im, [gt]
+                    else:
+                            continue
 def distance(a,b):
     if a.has_key('w') and b.has_key('h'):
         a=[(a['x']+a['w'])*0.5,(a['y']+a['h'])*0.5]
