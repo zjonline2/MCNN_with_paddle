@@ -92,7 +92,7 @@ def baidu_star_2018(settings,annotation, mode, shuffle):
                id_path=settings.data_dir+'/ground_truth/'+str(annotation['id'])+'.npy'
                im=im.resize((im_width/2,im_height/2),Image.ANTIALIAS)
                im=np.array(im)
-               
+               print im.shape
                if os.path.exists(id_path):
                   gt=np.load(id_path)
                   gt=np.transpose(gt)
