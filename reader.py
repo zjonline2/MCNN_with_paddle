@@ -80,8 +80,7 @@ def train(settings, file_list, shuffle=True):
     annotation='./baidu_star_2018/annotation/annotation_train_stage2.json'
     flist = open(annotation)
     annotations=json.load(flist)['annotations'];
-    if mode == 'train' and shuffle:
-        random.shuffle(annotations)
+    random.shuffle(annotations)
     for annotation in annotations:
         image_path = settings.data_dir+'/image/'+annotation['name']
         im = Image.open(image_path);
