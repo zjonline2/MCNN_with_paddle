@@ -8,7 +8,7 @@ def convseg(input,num_filters,filter_size,max_pool):
                               num_filters=num_filters,
                               filter_size=filter_size,
                               stride=1,
-                              padding=(filter_size+1)/2,
+                              padding=filter_size/2,
                               act='relu',
                               dilation=1,
                               param_attr=fluid.param_attr.ParamAttr(
