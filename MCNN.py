@@ -7,7 +7,7 @@ def convseg(input,num_filters,filter_size,max_pool):
     input=fluid.layers.conv2d(input=input,
                               num_filters=num_filters,
                               filter_size=filter_size,
-                              stride=1,padding=filter_size/2,
+                              stride=1,padding=(filter_size-1)/2,
                               act='relu',
                               dilation=1,
                               param_attr=fluid.param_attr.ParamAttr(
@@ -15,7 +15,7 @@ def convseg(input,num_filters,filter_size,max_pool):
                               bias_attr=fluid.param_attr.ParamAttr(
                                  initializer=fluid.initializer.Constant(value=0.0)))
     if max_pool:
-       input=fluid.layers.pool2d(input=input,pool_size=2,pool_type='max')
+       input=fluid.layers.pool2d(input=input,pool_size=2,pool_type='max',pool_padding=1)
     return input
 def core(input):
     num_filter=[[[9,16,False],[7,32,True],[7,16,True],[7,8,False]],
