@@ -90,10 +90,9 @@ def baidu_star_2018(settings,annotation, mode, shuffle):
             im_width, im_height = im.size
             if im_width==1920 and im_height==1080:
                id_path=settings.data_dir+'/ground_truth/'+str(annotation['id'])+'.npy'
-               #im=im.resize((im_width,im_height),Image.ANTIALIAS)
+               im=im.resize((im_width/2,im_height/2),Image.ANTIALIAS)
                im=np.array(im)
-               if len(im.shape) == 3:
-                     im = np.swapaxes(im, 0, 2)
+               
                if os.path.exists(id_path):
                   gt=np.load(id_path)
                   gt=np.transpose(gt)
