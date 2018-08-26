@@ -81,10 +81,6 @@ def baidu_star_2018(settings,annotation, mode, shuffle):
 
 def train(settings, file_list, shuffle=True):
     file_list = os.path.join(settings.data_dir, file_list)
-    baidu_star_2018(settings, file_list, 'train', shuffle)
-
-def test(settings, file_list):
-    file_list = os.path.join(settings.data_dir, file_list)
     flist = open(annotation)
     annotations=json.load(flist)['annotations'];
     if mode == 'train' and shuffle:
@@ -108,6 +104,10 @@ def test(settings, file_list):
                             yield im, [gt]
                     else:
                             continue
+
+def test(settings, file_list):
+    file_list = os.path.join(settings.data_dir, file_list)
+    return baidu_star_2018(settings, file_list, 'test', False)
 def distance(a,b):
     if a.has_key('w') and b.has_key('h'):
         a=[(a['x']+a['w'])*0.5,(a['y']+a['h'])*0.5]
